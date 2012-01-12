@@ -30,8 +30,8 @@ var CardReader = function (error_start, track_start, track_end, timeout) {
 CardReader.prototype = {
 	dispatch: function (data, isError) {
 		if (!isError) {
-			for (var cb in this.validators) {
-				if (!this.validators[cb](data)) {
+			for (var i = 0; i < this.validators.length; i++) {
+				if(!this.validators[i](data)) {
 					isError = true;
 					break;
 				}
@@ -55,12 +55,12 @@ CardReader.prototype = {
 		}, 200);
 	
 		if (isError) {
-			for (var cb in this.errbacks) {
-				this.errbacks[cb](this.input);
+			for (var i = 0; i < this.errbacks.length; i++) {
+				this.errbacks[i](this.input);
 			}
 		} else {
-			for (var cb in this.callbacks) {
-				this.callbacks[cb](this.input);
+			for (var i = 0; i < this.callbacks.length; i++) {
+				this.callbacks[i](this.input);
 			}
 		}
 	},
